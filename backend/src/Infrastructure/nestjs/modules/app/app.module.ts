@@ -15,6 +15,7 @@ import { UserModule } from '../user/user.module';
     AccountModule,
     TransactionModule,
     LoginModule,
+    UserModule,
     TypeormConfigModule,
     ConfigModule.forRoot({
       envFilePath: '.env',

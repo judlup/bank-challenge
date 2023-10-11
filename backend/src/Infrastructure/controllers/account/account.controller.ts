@@ -1,16 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
 import { GetAccountHealthUseCase } from 'src/Application/usecases/account/getHealth.usecase';
-import { AccountRepository } from 'src/Infrastructure/repositories/account/account.repository';
 
 @Controller()
 export class AccountController {
-  constructor(private accountRepository: AccountRepository) {}
+  constructor() {}
 
   @Get()
   health(): string {
-    const getAccountHealthUseCase = new GetAccountHealthUseCase(
-      this.accountRepository,
-    );
+    const getAccountHealthUseCase = new GetAccountHealthUseCase();
     return getAccountHealthUseCase.execute();
   }
 }
