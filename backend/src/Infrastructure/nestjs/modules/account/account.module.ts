@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { GetAccountHealthUseCase } from 'src/Application/usecases/account/getHealth.usecase';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CreateAccountUseCase } from 'src/Application/usecases/account/createAccount.usecase';
 import { AccountController } from 'src/Infrastructure/controllers/account/account.controller';
+import { Account } from 'src/Infrastructure/entities/account/account.entity';
 
 @Module({
-  imports: [],
+  imports: [TypeOrmModule.forFeature([Account])],
   controllers: [AccountController],
-  providers: [GetAccountHealthUseCase],
+  providers: [CreateAccountUseCase],
 })
 export class AccountModule {}

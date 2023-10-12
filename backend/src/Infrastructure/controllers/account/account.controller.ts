@@ -1,13 +1,26 @@
-import { Controller, Get } from '@nestjs/common';
-import { GetAccountHealthUseCase } from 'src/Application/usecases/account/getHealth.usecase';
+import { Body, Controller, Post } from '@nestjs/common';
+import { CreateAccountUseCase } from 'src/Application/usecases/account/createAccount.usecase';
+import { AccountDto } from 'src/Domain/dtos/account/account.dto';
+
+import { AccountPresenter } from 'src/Domain/presenters/account/account.presenter';
+import { Account } from 'src/Infrastructure/entities/account/account.entity';
+import { generateUUID } from 'src/Infrastructure/utils/uuid.util';
 
 @Controller()
 export class AccountController {
-  constructor() {}
+  constructor(private readonly createAccountUseCase: CreateAccountUseCase) {}
 
-  @Get()
-  health(): string {
-    const getAccountHealthUseCase = new GetAccountHealthUseCase();
-    return getAccountHealthUseCase.execute();
+  @Post()
+  async create(@Body() accountDto: AccountDto): Promise<AccountPresenter> {
+    const account = new Account();
+    account.id = generateUUID();
+    account.name = accountDto.name;
+    account.userId = accountDto.userId;
+    account.accountNumber = accountDto.accountNumber;
+    account.balance = accountDto.balance;
+
+    const execute = await this.createAccountUseCase.execute(account);
+
+    return new AccountPresenter(execute);
   }
 }
