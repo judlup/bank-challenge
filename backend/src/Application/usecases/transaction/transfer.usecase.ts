@@ -59,12 +59,6 @@ export class TransferUseCase {
       destinationExists.balance += transaction.amount;
       await this.accountRepository.save(destinationExists);
 
-      if (transaction.amount >= 10000) {
-        console.warn(
-          `The transaction ${transaction.id} was made by ${transaction.userId} with amount ${transaction.amount} and description ${transaction.description}`,
-        );
-      }
-
       // Save the transaction
       return await this.transactioRepository.save(transaction);
     } catch (error) {
