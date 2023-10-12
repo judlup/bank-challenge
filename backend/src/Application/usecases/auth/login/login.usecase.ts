@@ -23,10 +23,10 @@ export class LoginUseCase {
         user.token = await this.tokenService.generateJwt(payload);
         return user;
       } else {
-        throw new UnauthorizedException('Invalid password');
+        throw new UnauthorizedException('Invalid email or password');
       }
     } catch (error) {
-      console.error('An error has occurred:', error.message);
+      console.error(`An error has occurred: ${error.name} - ${error.message}`);
       throw new UnauthorizedException(
         `An error has occurred: ${error.message}`,
       );
