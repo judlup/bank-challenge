@@ -7,6 +7,7 @@ import { AppController } from '../../../controllers/app/app.controller';
 import { AppService } from '../../../services/app/app.service';
 import { AccountModule } from '../account/account.module';
 import { LoginModule } from '../auth/login/login.module';
+import { EventModule } from '../event/event.module';
 import { TransactionModule } from '../transaction/transaction.module';
 import { UserModule } from '../user/user.module';
 
@@ -16,6 +17,7 @@ import { UserModule } from '../user/user.module';
     TransactionModule,
     LoginModule,
     UserModule,
+    EventModule,
     TypeormConfigModule,
     ConfigModule.forRoot({
       envFilePath: '.env',
@@ -41,6 +43,10 @@ import { UserModule } from '../user/user.module';
       {
         path: 'user',
         module: UserModule,
+      },
+      {
+        path: 'event',
+        module: EventModule,
       },
     ]),
   ],

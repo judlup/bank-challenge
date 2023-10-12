@@ -8,6 +8,8 @@ import {
   TransactionListPresenter,
   TransactionPresenter,
 } from 'src/Domain/presenters/transaction/transaction.presenter';
+import { CreateEventClient } from 'src/Infrastructure/clients/event/create/createEventClient';
+import { Event } from 'src/Infrastructure/entities/event/event.entity';
 import { Transaction } from 'src/Infrastructure/entities/transaction/transaction.entity';
 import { generateUUID } from 'src/Infrastructure/utils/uuid.util';
 
@@ -18,6 +20,7 @@ export class TransactionController {
     private readonly withdrawalUseCase: WithdrawalUseCase,
     private readonly depositUseCase: DepositUseCase,
     private readonly getTransactionsUseCase: GetTransactionsUseCase,
+    private readonly createEventClient: CreateEventClient,
   ) {}
 
   @Post('transfer')
@@ -34,6 +37,16 @@ export class TransactionController {
     transaction.description = transactionDto.description;
 
     const execute = await this.transferUseCase.execute(transaction);
+
+    // TO DO: Migrate to event sourcing with Kafka
+    const eventData = new Event();
+    eventData.data = execute;
+    eventData.type = 'transfer_transaction';
+    const createEvent = await this.createEventClient.createEvent(eventData);
+    console.log(
+      `TransactionController: A new withdrawal has been created: ${execute.id} for user ${execute.userId} with amount ${execute.amount} and event ${createEvent.id}`,
+    );
+
     return new TransactionPresenter(execute);
   }
 
@@ -51,6 +64,16 @@ export class TransactionController {
     transaction.description = transactionDto.description;
 
     const execute = await this.withdrawalUseCase.execute(transaction);
+
+    // TO DO: Migrate to event sourcing with Kafka
+    const eventData = new Event();
+    eventData.data = execute;
+    eventData.type = 'withdrawal_transaction';
+    const createEvent = await this.createEventClient.createEvent(eventData);
+    console.log(
+      `TransactionController: A new withdrawal has been created: ${execute.id} for user ${execute.userId} with amount ${execute.amount} and event ${createEvent.id}`,
+    );
+
     return new TransactionPresenter(execute);
   }
 
@@ -68,6 +91,16 @@ export class TransactionController {
     transaction.description = 'deposit';
 
     const execute = await this.depositUseCase.execute(transaction);
+
+    // TO DO: Migrate to event sourcing with Kafka
+    const eventData = new Event();
+    eventData.data = execute;
+    eventData.type = 'deposit_transaction';
+    const createEvent = await this.createEventClient.createEvent(eventData);
+    console.log(
+      `TransactionController: A new deposit has been created: ${execute.id} for user ${execute.userId} with amount ${execute.amount} and event ${createEvent.id}`,
+    );
+
     return new TransactionPresenter(execute);
   }
 

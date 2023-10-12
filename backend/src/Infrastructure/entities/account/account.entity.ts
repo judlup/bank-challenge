@@ -4,7 +4,7 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 export class Account {
   @PrimaryColumn({ type: 'uuid' })
   id: string;
-  @Column({ type: 'varchar', length: 150 })
+  @Column({ type: 'varchar', length: 150, default: 'My account' })
   name: string;
   @Column({ type: 'uuid', unique: true })
   userId: string;

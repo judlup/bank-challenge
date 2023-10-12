@@ -11,7 +11,7 @@ export class LargeDepositMiddleware implements NestMiddleware {
       req.body.amount >= 10000
     ) {
       console.log(
-        `One transaction was made by ${req.body.userId} with amount ${req.body.amount}`,
+        `LargeDepositMiddleware: One transaction was made by ${req.body.userId} with amount ${req.body.amount}`,
       );
     }
     next();

@@ -30,16 +30,17 @@ export class UserController {
 
     // Create account
     const account = new Account();
-    account.name = 'Mi Cuenta';
+    account.name = 'My account';
     account.userId = execute.id;
     // The account number is the user's phone number
     account.accountNumber = execute.phone;
     // A welcome bonus is added to the account
     account.balance = this.environmentConfigService.getBalanceBonus();
 
+    // TO DO: Migrate to event sourcing with Kafka
     const newAccount = await this.createAccountClient.createAccount(account);
     console.log(
-      `A new account has been created: ${newAccount.id} for user ${execute.id} with balance ${newAccount.balance} and account number ${newAccount.accountNumber} and email ${execute.email}`,
+      `UserController: A new account has been created: ${newAccount.id} for user ${execute.id} with balance ${newAccount.balance} and account number ${newAccount.accountNumber} and email ${execute.email}`,
     );
 
     return new UserPresenter(execute);

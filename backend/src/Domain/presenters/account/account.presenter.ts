@@ -1,7 +1,7 @@
 import { AccountModel } from 'src/Domain/model/account/account.model';
 
 export class AccountPresenter {
-  id: string;
+  id?: string;
   name: string;
   userId: string;
   accountNumber: string;
