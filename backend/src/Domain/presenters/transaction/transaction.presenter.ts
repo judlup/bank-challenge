@@ -25,3 +25,28 @@ export class TransactionPresenter {
     this.updated_at = transaction.updated_at;
   }
 }
+
+export class TransactionListPresenter {
+  results: TransactionPresenter[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+
+  constructor(
+    results: TransactionPresenter[],
+    page: number,
+    limit: number,
+    total: number,
+  ) {
+    this.results = results;
+    this.total = total;
+    this.page = Number(page);
+    this.limit = Number(limit);
+    this.totalPages = Math.ceil(this.total / limit);
+    this.hasPrevPage = this.page > 1;
+    this.hasNextPage = this.page < this.totalPages;
+  }
+}
