@@ -1,6 +1,6 @@
 export class TransactionModel {
   id: string;
-  destinationAccount: string;
+  destinationAccount?: string;
   originAccount: string;
   userId: string;
   type: string;

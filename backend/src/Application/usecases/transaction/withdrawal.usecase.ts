@@ -6,7 +6,7 @@ import { Transaction } from 'src/Infrastructure/entities/transaction/transaction
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class DepositUseCase {
+export class WithdrawalUseCase {
   constructor(
     @InjectRepository(Transaction)
     private readonly transactioRepository: Repository<Transaction>,
@@ -17,24 +17,17 @@ export class DepositUseCase {
 
   async execute(transaction: TransactionModel): Promise<TransactionModel> {
     try {
-      if (transaction.originAccount === transaction.destinationAccount) {
-        throw new ConflictException(
-          'The origin and destination account cannot be the same',
-        );
+      if (transaction.destinationAccount) {
+        throw new ConflictException('The destination account must be empty');
       }
 
-      // Validate if the accounts exists (destination and origin)
-      const destinationExists = await this.accountRepository.findOne({
-        where: { accountNumber: transaction.destinationAccount },
-      });
+      // Validate if the account exists (origin)
       const originExists = await this.accountRepository.findOne({
         where: { accountNumber: transaction.originAccount },
       });
 
-      if (!destinationExists || !originExists) {
-        throw new ConflictException(
-          'The origin or destination account does not exist',
-        );
+      if (!originExists) {
+        throw new ConflictException('The origin account does not exist');
       }
 
       // Validate if user is the owner of the account
@@ -54,16 +47,6 @@ export class DepositUseCase {
       // Update the origin account
       originExists.balance -= transaction.amount;
       await this.accountRepository.save(originExists);
-
-      // Update the destination account
-      destinationExists.balance += transaction.amount;
-      await this.accountRepository.save(destinationExists);
-
-      if (transaction.amount >= 10000) {
-        console.warn(
-          `The transaction ${transaction.id} was made by ${transaction.userId} with amount ${transaction.amount} and description ${transaction.description}`,
-        );
-      }
 
       // Save the transaction
       return await this.transactioRepository.save(transaction);

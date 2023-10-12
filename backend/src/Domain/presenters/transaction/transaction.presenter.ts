@@ -2,7 +2,7 @@ import { TransactionModel } from 'src/Domain/model/transaction/transaction.model
 
 export class TransactionPresenter {
   id: string;
-  destinationAccount: string;
+  destinationAccount?: string;
   originAccount: string;
   userId: string;
   type: string;
