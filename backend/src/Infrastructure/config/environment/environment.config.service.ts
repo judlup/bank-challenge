@@ -36,4 +36,8 @@ export class EnvironmentConfigService {
   getRootResponse(): string {
     return this.configService.get<string>('ROOT_RESPONSE');
   }
+
+  getJwtSecret(): string {
+    return this.configService.get<string>('JWT_SECRET');
+  }
 }

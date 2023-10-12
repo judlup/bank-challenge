@@ -20,4 +20,6 @@ export class User {
   created_at: Date;
   @CreateDateColumn({ type: 'timestamp', name: 'updated_at' })
   updated_at: Date;
+
+  token?: string;
 }

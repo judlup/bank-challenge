@@ -8,4 +8,5 @@ export class UserModel {
   status: string;
   created_at: Date;
   updated_at: Date;
+  token?: string;
 }
