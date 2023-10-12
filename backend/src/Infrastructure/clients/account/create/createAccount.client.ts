@@ -15,12 +15,15 @@ export class CreateAccountClient {
       // TODO: Implement axios global client
       const HOST = this.environmentConfigService.getAppHost();
       const PORT = this.environmentConfigService.getAppPort();
+      const TIMEOUT = this.environmentConfigService.getAppTimeout();
+
       const options = {
         method: 'POST',
         url: `http://${HOST}:${PORT}/account`,
         headers: {
           'Content-Type': 'application/json',
         },
+        timeout: TIMEOUT,
         data: {
           id: generateUUID(),
           name: accountDto.name,

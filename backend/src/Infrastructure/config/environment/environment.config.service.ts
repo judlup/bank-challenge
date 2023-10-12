@@ -52,4 +52,8 @@ export class EnvironmentConfigService {
   getAppPort(): number {
     return this.configService.get<number>('APP_PORT');
   }
+
+  getAppTimeout(): number {
+    return this.configService.get<number>('APP_TIMEOUT');
+  }
 }

@@ -14,12 +14,15 @@ export class CreateEventClient {
       // TODO: Implement axios global client
       const HOST = this.environmentConfigService.getAppHost();
       const PORT = this.environmentConfigService.getAppPort();
+      const TIMEOUT = this.environmentConfigService.getAppTimeout();
+
       const options = {
         method: 'POST',
         url: `http://${HOST}:${PORT}/event`,
         headers: {
           'Content-Type': 'application/json',
         },
+        timeout: TIMEOUT,
         data: {
           data: eventDto.data,
           type: eventDto.type,
