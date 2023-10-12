@@ -40,4 +40,16 @@ export class EnvironmentConfigService {
   getJwtSecret(): string {
     return this.configService.get<string>('JWT_SECRET');
   }
+
+  getBalanceBonus(): number {
+    return this.configService.get<number>('BALANCE_BONUS');
+  }
+
+  getAppHost(): string {
+    return this.configService.get<string>('APP_HOST');
+  }
+
+  getAppPort(): number {
+    return this.configService.get<number>('APP_PORT');
+  }
 }
