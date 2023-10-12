@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { RouterModule } from '@nestjs/core';
+import { JwtModule } from '@nestjs/jwt';
+import { EnvironmentConfigModule } from 'src/Infrastructure/config/environment/environment.config.module';
 import { EnvironmentConfigService } from 'src/Infrastructure/config/environment/environment.config.service';
 import { TypeormConfigModule } from 'src/Infrastructure/config/typeorm/typeorm.config.module';
+import { AuthGuard } from 'src/Infrastructure/guards/auth/auth.guard';
+import { TokenService } from 'src/Infrastructure/utils/jwt/jwt.util';
 import { AppController } from '../../../controllers/app/app.controller';
 import { AppService } from '../../../services/app/app.service';
 import { AccountModule } from '../account/account.module';
@@ -19,6 +23,14 @@ import { UserModule } from '../user/user.module';
     UserModule,
     EventModule,
     TypeormConfigModule,
+    JwtModule.registerAsync({
+      imports: [EnvironmentConfigModule],
+      useFactory: (configService: EnvironmentConfigService) => ({
+        secret: configService.getJwtSecret(),
+        signOptions: { expiresIn: '1h' },
+      }),
+      inject: [EnvironmentConfigService],
+    }),
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
@@ -51,6 +63,6 @@ import { UserModule } from '../user/user.module';
     ]),
   ],
   controllers: [AppController],
-  providers: [AppService, EnvironmentConfigService],
+  providers: [AppService, EnvironmentConfigService, AuthGuard, TokenService],
 })
 export class AppModule {}

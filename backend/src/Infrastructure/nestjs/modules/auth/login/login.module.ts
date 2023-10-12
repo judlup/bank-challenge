@@ -6,7 +6,7 @@ import { EnvironmentConfigModule } from 'src/Infrastructure/config/environment/e
 import { EnvironmentConfigService } from 'src/Infrastructure/config/environment/environment.config.service';
 import { LoginController } from 'src/Infrastructure/controllers/auth/login/login.controller';
 import { User } from 'src/Infrastructure/entities/user/user.entity';
-import { TokenService } from 'src/Infrastructure/utils/jwt.util';
+import { TokenService } from 'src/Infrastructure/utils/jwt/jwt.util';
 
 @Module({
   imports: [

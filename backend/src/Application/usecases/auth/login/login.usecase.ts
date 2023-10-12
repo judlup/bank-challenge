@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserModel } from 'src/Domain/model/user/user.model';
 import { User } from 'src/Infrastructure/entities/user/user.entity';
 import { compareHash } from 'src/Infrastructure/utils/bcrypt.util';
-import { TokenService } from 'src/Infrastructure/utils/jwt.util';
+import { TokenService } from 'src/Infrastructure/utils/jwt/jwt.util';
 import { Repository } from 'typeorm';
 
 @Injectable()

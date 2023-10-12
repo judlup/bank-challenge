@@ -9,6 +9,7 @@ async function bootstrap() {
     .setTitle('Bank Challenge')
     .setDescription('Bank Challenge API')
     .setVersion('0.0.1')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

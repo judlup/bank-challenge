@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DepositUseCase } from 'src/Application/usecases/transaction/deposit.usecase';
 import { GetTransactionsUseCase } from 'src/Application/usecases/transaction/getTransactions.usecase';
@@ -12,6 +20,7 @@ import {
 import { CreateEventClient } from 'src/Infrastructure/clients/event/create/createEventClient';
 import { Event } from 'src/Infrastructure/entities/event/event.entity';
 import { Transaction } from 'src/Infrastructure/entities/transaction/transaction.entity';
+import { AuthGuard } from 'src/Infrastructure/guards/auth/auth.guard';
 import { generateUUID } from 'src/Infrastructure/utils/uuid.util';
 
 @ApiTags('Transaction')
@@ -25,6 +34,7 @@ export class TransactionController {
     private readonly createEventClient: CreateEventClient,
   ) {}
 
+  @UseGuards(AuthGuard)
   @Post('transfer')
   @ApiResponse({
     status: 200,
@@ -57,6 +67,7 @@ export class TransactionController {
     return new TransactionPresenter(execute);
   }
 
+  @UseGuards(AuthGuard)
   @Post('withdrawal')
   @ApiResponse({
     status: 200,
@@ -89,6 +100,7 @@ export class TransactionController {
     return new TransactionPresenter(execute);
   }
 
+  @UseGuards(AuthGuard)
   @Post('deposit')
   @ApiResponse({
     status: 200,
@@ -121,6 +133,7 @@ export class TransactionController {
     return new TransactionPresenter(execute);
   }
 
+  @UseGuards(AuthGuard)
   @Get(':accountNumber')
   @ApiResponse({
     status: 200,
