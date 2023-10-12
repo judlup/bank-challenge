@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateAccountUseCase } from 'src/Application/usecases/account/createAccount.usecase';
 import { GetBalanceByAccountNumberUseCase } from 'src/Application/usecases/account/getBalanceByAccountNumber.usecase';
 import { AccountDto } from 'src/Domain/dtos/account/account.dto';
@@ -9,6 +10,7 @@ import { Account } from 'src/Infrastructure/entities/account/account.entity';
 import { Event } from 'src/Infrastructure/entities/event/event.entity';
 import { generateUUID } from 'src/Infrastructure/utils/uuid.util';
 
+@ApiTags('Account')
 @Controller()
 export class AccountController {
   constructor(
@@ -18,6 +20,11 @@ export class AccountController {
   ) {}
 
   @Post()
+  @ApiResponse({
+    status: 201,
+    description: 'Create account',
+    type: AccountPresenter,
+  })
   async create(@Body() accountDto: AccountDto): Promise<AccountPresenter> {
     const account = new Account();
     account.id = generateUUID();
@@ -41,6 +48,11 @@ export class AccountController {
   }
 
   @Get(':accountNumber/balance')
+  @ApiResponse({
+    status: 200,
+    description: 'Get balance by account number',
+    type: Number,
+  })
   async getBalanceByAccountNumber(
     @Param('accountNumber') accountNumber: string,
   ): Promise<number> {

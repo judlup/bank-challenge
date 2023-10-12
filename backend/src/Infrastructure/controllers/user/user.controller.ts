@@ -1,4 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RegisterUserUseCase } from 'src/Application/usecases/user/registerUser.usecase';
 import { RegisterDto } from 'src/Domain/dtos/user/user.dto';
 import { UserPresenter } from 'src/Domain/presenters/user/user.presenter';
@@ -9,6 +10,7 @@ import { User } from 'src/Infrastructure/entities/user/user.entity';
 import { generateHash } from 'src/Infrastructure/utils/bcrypt.util';
 import { generateUUID } from 'src/Infrastructure/utils/uuid.util';
 
+@ApiTags('User')
 @Controller()
 export class UserController {
   constructor(
@@ -18,6 +20,11 @@ export class UserController {
   ) {}
 
   @Post('register')
+  @ApiResponse({
+    status: 201,
+    description: 'Register user',
+    type: UserPresenter,
+  })
   async register(@Body() registerDto: RegisterDto): Promise<UserPresenter> {
     const user = new User();
     user.id = generateUUID();

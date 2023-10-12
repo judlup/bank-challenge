@@ -1,15 +1,26 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { TransactionModel } from 'src/Domain/model/transaction/transaction.model';
 
 export class TransactionPresenter {
+  @ApiProperty()
   id: string;
+  @ApiPropertyOptional()
   destinationAccount?: string;
+  @ApiProperty()
   originAccount: string;
+  @ApiProperty()
   userId: string;
+  @ApiProperty()
   type: string;
+  @ApiProperty()
   amount: number;
+  @ApiProperty()
   description: string;
+  @ApiProperty()
   status: string;
+  @ApiProperty()
   created_at: Date;
+  @ApiProperty()
   updated_at: Date;
 
   constructor(transaction: TransactionModel) {
@@ -27,12 +38,18 @@ export class TransactionPresenter {
 }
 
 export class TransactionListPresenter {
+  @ApiProperty()
   results: TransactionPresenter[];
   total: number;
+  @ApiProperty()
   page: number;
+  @ApiProperty()
   limit: number;
+  @ApiProperty()
   totalPages: number;
+  @ApiProperty()
   hasPrevPage: boolean;
+  @ApiProperty()
   hasNextPage: boolean;
 
   constructor(

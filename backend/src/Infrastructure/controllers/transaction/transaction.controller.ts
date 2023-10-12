@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DepositUseCase } from 'src/Application/usecases/transaction/deposit.usecase';
 import { GetTransactionsUseCase } from 'src/Application/usecases/transaction/getTransactions.usecase';
 import { TransferUseCase } from 'src/Application/usecases/transaction/transfer.usecase';
@@ -13,6 +14,7 @@ import { Event } from 'src/Infrastructure/entities/event/event.entity';
 import { Transaction } from 'src/Infrastructure/entities/transaction/transaction.entity';
 import { generateUUID } from 'src/Infrastructure/utils/uuid.util';
 
+@ApiTags('Transaction')
 @Controller()
 export class TransactionController {
   constructor(
@@ -24,6 +26,11 @@ export class TransactionController {
   ) {}
 
   @Post('transfer')
+  @ApiResponse({
+    status: 200,
+    description: 'Transfer successfully',
+    type: TransactionPresenter,
+  })
   async transfer(
     @Body() transactionDto: TransactionDto,
   ): Promise<TransactionPresenter> {
@@ -51,6 +58,11 @@ export class TransactionController {
   }
 
   @Post('withdrawal')
+  @ApiResponse({
+    status: 200,
+    description: 'Withdrawal successfully',
+    type: TransactionPresenter,
+  })
   async withdrawal(
     @Body() transactionDto: TransactionDto,
   ): Promise<TransactionPresenter> {
@@ -78,6 +90,11 @@ export class TransactionController {
   }
 
   @Post('deposit')
+  @ApiResponse({
+    status: 200,
+    description: 'Deposit successfully',
+    type: TransactionPresenter,
+  })
   async deposit(
     @Body() transactionDto: TransactionDto,
   ): Promise<TransactionPresenter> {
@@ -105,6 +122,12 @@ export class TransactionController {
   }
 
   @Get(':accountNumber')
+  @ApiResponse({
+    status: 200,
+    description: 'Get transactions by account number',
+    type: TransactionListPresenter,
+  })
+  @ApiParam({ name: 'accountNumber', type: String })
   async transactions(
     @Param() params: { accountNumber: string },
     @Query('page') page: number = 1,
