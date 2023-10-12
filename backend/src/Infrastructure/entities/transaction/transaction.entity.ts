@@ -1,17 +1,21 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export class Account {
+export class Transaction {
   @PrimaryColumn({ type: 'uuid' })
   id: string;
-  @Column({ type: 'varchar', length: 150 })
-  name: string;
-  @Column({ type: 'uuid', unique: true })
+  @Column({ type: 'uuid' })
+  destinationAccount: string;
+  @Column({ type: 'uuid' })
+  originAccount: string;
+  @Column({ type: 'uuid' })
   userId: string;
-  @Column({ type: 'varchar', length: 150, unique: true })
-  accountNumber: string;
-  @Column({ type: 'float', default: 0 })
-  balance: number;
+  @Column({ type: 'varchar', length: 30 })
+  type: string;
+  @Column({ type: 'float' })
+  amount: number;
+  @Column({ type: 'varchar', length: 30 })
+  description: string;
   @Column({ type: 'varchar', length: 30, default: 'active' })
   status: string;
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })

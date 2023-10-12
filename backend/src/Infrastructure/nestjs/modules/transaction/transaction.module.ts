@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DepositUseCase } from 'src/Application/usecases/transaction/deposit.usecase';
 import { TransactionController } from 'src/Infrastructure/controllers/transaction/transaction.controller';
-import { TransactionService } from 'src/Infrastructure/services/transaction/transaction.service';
+import { Account } from 'src/Infrastructure/entities/account/account.entity';
+import { Transaction } from 'src/Infrastructure/entities/transaction/transaction.entity';
 
 @Module({
-  imports: [],
+  imports: [TypeOrmModule.forFeature([Transaction, Account])],
   controllers: [TransactionController],
-  providers: [TransactionService],
+  providers: [DepositUseCase],
 })
 export class TransactionModule {}
