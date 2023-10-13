@@ -16,7 +16,7 @@ export class Transaction {
   amount: number;
   @Column({ type: 'varchar', length: 30 })
   description: string;
-  @Column({ type: 'varchar', length: 30, default: 'active' })
+  @Column({ type: 'varchar', length: 30, default: 'accepted' })
   status: string;
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
   created_at: Date;
