@@ -32,7 +32,7 @@ const TransferView: FC<Props> = ({
       <div className="bg-gray-50 min-h-screen flex items-center justify-center">
         <div className="bg-white p-8 shadow-md rounded-md w-96">
           <h1 className="text-3xl font-bold mb-6 text-center text-blue-900">
-            Deposit
+            Transfer
           </h1>
           <hr className="mb-6" />
 
