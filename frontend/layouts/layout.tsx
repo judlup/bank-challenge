@@ -1,4 +1,6 @@
 import { FC } from "react"
+import FooterContainer from "../features/global/footer/footer.container"
+import NavbarContainer from "../features/global/navbar/navbar.container"
 
 type Props = {
   children: React.ReactNode
@@ -7,20 +9,9 @@ type Props = {
 const Layout: FC<Props> = ({ children }) => {
   return (
     <>
-      <div>
-        Navbar
-        <div>
-          <ul>
-            <li>Home</li>
-            <li>Mi saldo</li>
-            <li>Perfil</li>
-            <li>Sign In</li>
-            <li>Sign Up</li>
-          </ul>
-        </div>
-      </div>
+      <NavbarContainer />
       {children}
-      <div>Footer</div>
+      <FooterContainer />
     </>
   )
 }

@@ -1,5 +1,12 @@
 import type { NextPage } from "next"
 import Head from "next/head"
+import DashboardContainer from "../features/dashboard/dashboard.container"
+import DepositContianer from "../features/deposit/deposit.contianer"
+import MovementsContainer from "../features/movements/movements.container"
+import MyAccountContainer from "../features/myAccount/myAccount.container"
+import SigninContainer from "../features/signin/singin.container"
+import SignupContainer from "../features/signup/signip.container"
+import WithdrawalContainer from "../features/withdrawal/withdrawal.container"
 import styles from "../styles/Home.module.css"
 
 const Home: NextPage = () => {
@@ -10,118 +17,20 @@ const Home: NextPage = () => {
         <meta name="description" content="Bank Challenge" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
-        <h1>Bank Challenge</h1>
-        <hr />
-        <h4>Hola Usuario</h4>
-        <div>Mi Cuenta</div>
-        <div>Depositar</div>
-        <div>Retirar</div>
-        <div>Movimientos</div>
-        <div>Reportes</div>
-        <div>Configuración</div>
-      </div>
 
-      <hr />
+      <DashboardContainer />
 
-      <div>
-        <h1>Signin</h1>
-        <hr />
-        <div>
-          <input type="text" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <span>Create an account</span>
-          <button>Signup</button>
-        </div>
-      </div>
+      <SigninContainer />
 
-      <div>
-        <h1>Signup</h1>
-        <hr />
-        <div>
-          <input type="text" placeholder="Name" />
-          <input type="text" placeholder="Email" />
-          <input type="text" placeholder="Phone" />
-          <input type="password" placeholder="Password" />
-          <input type="password" placeholder="Confirm Password" />
-          <button>Signup</button>
-        </div>
-      </div>
+      <SignupContainer />
 
-      <hr />
+      <MyAccountContainer />
 
-      <div>
-        <h1>My Account</h1>
-        <hr />
-        <div>
-          <div>
-            <button>Assign account name</button>
-          </div>
-          <div>Owner: Julián Luna</div>
-          <div>Name: My Account</div>
-          <div>Email: judlup@gmail.com </div>
-          <div>Account Number: 573164907627 </div>
-          <div>Balance: 100</div>
-        </div>
-      </div>
+      <DepositContianer />
 
-      <hr />
+      <WithdrawalContainer />
 
-      <div>
-        <h1>Deposit</h1>
-        <hr />
-        <div>
-          <div>Balance: 100</div>
-          <select>
-            <option>Select Account Number</option>
-            <option value="573164907627">573164907627</option>
-          </select>
-          <input type="text" placeholder="Amount" />
-          <button>Deposit</button>
-        </div>
-      </div>
-
-      <hr />
-
-      <div>
-        <h1>Withdraw</h1>
-        <hr />
-        <div>
-          <div>Balance: 100</div>
-          <select>
-            <option>Select Account Number</option>
-            <option value="573164907627">573164907627</option>
-          </select>
-          <input type="text" placeholder="Amount" />
-          <button>Withdraw</button>
-        </div>
-      </div>
-
-      <hr />
-
-      <div>
-        <h1>Movements</h1>
-        <hr />
-        <div>
-          <div>
-            <div>Ref</div>
-            <div>Deposit</div>
-            <div>10000</div>
-            <div>573164907627</div>
-            <div>573164907627</div>
-            <div>2021-08-10</div>
-          </div>
-          <hr />
-          <div>
-            <div>Ref</div>
-            <div>Deposit</div>
-            <div>10000</div>
-            <div>573164907627</div>
-            <div>573164907627</div>
-            <div>2021-08-10</div>
-          </div>
-        </div>
-      </div>
+      <MovementsContainer />
     </div>
   )
 }
