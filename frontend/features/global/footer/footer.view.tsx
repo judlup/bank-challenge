@@ -7,13 +7,16 @@ type Props = {
 
 const FooterView: FC<Props> = ({ date }) => {
   return (
-    <Footer container className="bg-gray-200">
-      <Footer.Copyright by="Julián Luna" year={date} />
+    <Footer container className="bg-gray-200 fixed bottom-0">
+      <Footer.Copyright
+        href="https://www.linkedin.com/in/judlup/"
+        by="Julián Luna"
+        year={date}
+      />
       <Footer.LinkGroup>
-        <Footer.Link href="#">About</Footer.Link>
-        <Footer.Link href="#">Privacy Policy</Footer.Link>
-        <Footer.Link href="#">Licensing</Footer.Link>
-        <Footer.Link href="#">Contact</Footer.Link>
+        <Footer.Link href="https://www.linkedin.com/in/judlup/">
+          About
+        </Footer.Link>
       </Footer.LinkGroup>
     </Footer>
   )

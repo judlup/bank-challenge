@@ -1,12 +1,14 @@
 import { Avatar, Dropdown, Navbar } from "flowbite-react"
 import { FC } from "react"
+import { UserInterface } from "../../../models/user/user.interface"
 
 type Props = {
   isAuthenticated: boolean
+  user: UserInterface | null
   logout: () => void
 }
 
-const NavbarView: FC<Props> = ({ isAuthenticated, logout }) => {
+const NavbarView: FC<Props> = ({ isAuthenticated, logout, user }) => {
   return (
     <Navbar fluid className="bg-gray-900">
       <Navbar.Brand href="/">
@@ -28,13 +30,11 @@ const NavbarView: FC<Props> = ({ isAuthenticated, logout }) => {
             }
           >
             <Dropdown.Header>
-              <span className="block text-sm">Bonnie Green</span>
+              <span className="block text-sm">{user?.name}</span>
               <span className="block truncate text-sm font-medium">
-                name@flowbite.com
+                {user?.email}
               </span>
             </Dropdown.Header>
-            <Dropdown.Item>My Account</Dropdown.Item>
-            <Dropdown.Item>Settings</Dropdown.Item>
             <Dropdown.Item onClick={() => logout()}>Sign out</Dropdown.Item>
           </Dropdown>
         )}
@@ -42,13 +42,33 @@ const NavbarView: FC<Props> = ({ isAuthenticated, logout }) => {
       </div>
       {isAuthenticated && (
         <Navbar.Collapse>
-          <Navbar.Link href="#" active>
+          <Navbar.Link href="/" className="text-white hover:text-teal-100">
             Dashboard
           </Navbar.Link>
-          <Navbar.Link href="#">Deposit</Navbar.Link>
-          <Navbar.Link href="#">Transfer</Navbar.Link>
-          <Navbar.Link href="#">Withdrawal</Navbar.Link>
-          <Navbar.Link href="#">Movements</Navbar.Link>
+          <Navbar.Link
+            href="/deposit"
+            className="text-white hover:text-teal-100"
+          >
+            Deposit
+          </Navbar.Link>
+          <Navbar.Link
+            href="/transfer"
+            className="text-white hover:text-teal-100"
+          >
+            Transfer
+          </Navbar.Link>
+          <Navbar.Link
+            href="/withdrawal"
+            className="text-white hover:text-teal-100"
+          >
+            Withdrawal
+          </Navbar.Link>
+          <Navbar.Link
+            href="/movements"
+            className="text-white hover:text-teal-100"
+          >
+            Movements
+          </Navbar.Link>
         </Navbar.Collapse>
       )}
     </Navbar>

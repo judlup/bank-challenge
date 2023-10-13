@@ -9,6 +9,13 @@ const store = persist<AuthStoreType>(
     token: null,
     user: null,
     balance: 0,
+    movementCurrentPage: 1,
+    movementLimitPerPage: 20,
+    movementTotalPages: 0,
+    movementHasNextPage: false,
+    movementHasPrevPage: false,
+    movementTotal: 0,
+    movements: [],
     signin: (token, user) => {
       set({ isAuthenticated: true, token, user })
       get().getBalaceByAccountNumber(Number(user.phone))
@@ -20,6 +27,16 @@ const store = persist<AuthStoreType>(
         await accountService.getBalanceByAccountNumber(accountNumber)
       set({ balance: accountBalanceResponse })
     },
+    setMovementCurrentPage: (page) => set({ movementCurrentPage: page }),
+    setMovementLimitPerPage: (limit) => set({ movementLimitPerPage: limit }),
+    setMovementTotalPages: (totalPages) =>
+      set({ movementTotalPages: totalPages }),
+    setMovementHasNextPage: (hasNextPage) =>
+      set({ movementHasNextPage: hasNextPage }),
+    setMovementHasPrevPage: (hasPrevPage) =>
+      set({ movementHasPrevPage: hasPrevPage }),
+    setMovementTotal: (total) => set({ movementTotal: total }),
+    setMovements: (movements) => set({ movements }),
   }),
   {
     name: "auth",

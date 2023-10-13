@@ -1,9 +1,11 @@
+import useAuthStore from "../../stores/auth/auth.store"
 import MyAccountView from "./myAccount.view"
 
 const MyAccountContainer = () => {
+  const { user, balance } = useAuthStore()
   return (
     <>
-      <MyAccountView />
+      <MyAccountView user={user} balance={balance} />
     </>
   )
 }

@@ -3,7 +3,7 @@ import useAuthStore from "../../../stores/auth/auth.store"
 import NavbarView from "./navbar.view"
 
 const NavbarContainer = () => {
-  const { isAuthenticated, logout, signin } = useAuthStore()
+  const { isAuthenticated, logout, user } = useAuthStore()
   const router = useRouter()
 
   const handlerLogout = () => {
@@ -13,7 +13,11 @@ const NavbarContainer = () => {
 
   return (
     <>
-      <NavbarView isAuthenticated={isAuthenticated} logout={handlerLogout} />
+      <NavbarView
+        isAuthenticated={isAuthenticated}
+        logout={handlerLogout}
+        user={user}
+      />
     </>
   )
 }

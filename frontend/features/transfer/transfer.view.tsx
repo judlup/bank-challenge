@@ -6,16 +6,26 @@ interface Props {
   user: UserInterface | null
   balance: number | null
   amount: number
+  description: string
+  destinationAccountNumber: number
+  handleDescriptionChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  handleTransfer: () => void
   handleAmountChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  handleDeposit: () => void
+  handleDestinationAccountNumberChange: (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => void
 }
 
-const DepositView: FC<Props> = ({
+const TransferView: FC<Props> = ({
   user,
   balance,
   amount,
-  handleDeposit,
+  description,
+  destinationAccountNumber,
+  handleDescriptionChange,
+  handleTransfer,
   handleAmountChange,
+  handleDestinationAccountNumberChange,
 }) => {
   return (
     <>
@@ -48,6 +58,23 @@ const DepositView: FC<Props> = ({
           </div>
 
           <div className="mb-4">
+            <label
+              className="block text-sm font-medium mb-2"
+              htmlFor="destinationAccountNumber"
+            >
+              Destination Account Number
+            </label>
+            <input
+              type="number"
+              id="destinationAccountNumber"
+              placeholder="Destination Account Number"
+              className="block w-full px-3 py-2 rounded-md border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+              onChange={handleDestinationAccountNumberChange}
+              value={destinationAccountNumber}
+            />
+          </div>
+
+          <div className="mb-4">
             <label className="block text-sm font-medium mb-2" htmlFor="amount">
               Amount
             </label>
@@ -62,9 +89,21 @@ const DepositView: FC<Props> = ({
           </div>
 
           <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">
+              Description
+            </label>
+            <input
+              value={description}
+              onChange={handleDescriptionChange}
+              type="text"
+              className="block w-full px-3 py-2 rounded-md border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+
+          <div className="mb-4">
             <button
               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 w-full"
-              onClick={() => handleDeposit()}
+              onClick={() => handleTransfer()}
             >
               Deposit
             </button>
@@ -75,4 +114,4 @@ const DepositView: FC<Props> = ({
   )
 }
 
-export default DepositView
+export default TransferView

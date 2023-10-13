@@ -7,7 +7,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DepositUseCase } from 'src/Application/usecases/transaction/deposit.usecase';
 import { GetTransactionsUseCase } from 'src/Application/usecases/transaction/getTransactions.usecase';
 import { TransferUseCase } from 'src/Application/usecases/transaction/transfer.usecase';
@@ -24,6 +24,7 @@ import { AuthGuard } from 'src/Infrastructure/guards/auth/auth.guard';
 import { generateUUID } from 'src/Infrastructure/utils/uuid.util';
 
 @ApiTags('Transaction')
+@ApiBearerAuth()
 @Controller()
 export class TransactionController {
   constructor(
